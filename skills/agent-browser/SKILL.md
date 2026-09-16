@@ -6,6 +6,8 @@ allowed-tools: Bash(npx agent-browser:*), Bash(agent-browser:*)
 
 # Browser Automation with agent-browser
 
+The Node.js `BrowserManager.launch` API accepts `cdpHeaders` for CDP transport authentication. Keep credentials in this field, separate from page `headers`. The experimental native engine rejects this option. There is no CLI flag for this API option.
+
 ## Core Workflow
 
 Every browser automation follows this pattern:

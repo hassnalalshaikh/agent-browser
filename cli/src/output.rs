@@ -2512,6 +2512,7 @@ Authentication:
                              (or AGENT_BROWSER_STATE env)
   --auto-connect             Connect to a running Chrome to reuse its auth state
                              Tip: agent-browser --auto-connect state save ./auth.json
+                             Authenticated CDP: Node.js API cdpHeaders (not native)
   --headers <json>           HTTP headers scoped to URL's origin (e.g., Authorization bearer token)
 
 Options:

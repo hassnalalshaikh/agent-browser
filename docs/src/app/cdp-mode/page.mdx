@@ -4,6 +4,8 @@ export const metadata = pageMetadata("cdp-mode")
 
 # CDP Mode
 
+The Node.js API supports authenticated browser transports with `BrowserManager.launch({ cdpUrl, cdpHeaders })`. Keep transport credentials in `cdpHeaders`; the separate `headers` option controls web page requests. The experimental native engine rejects `cdpHeaders`. This is a programmatic API option with no CLI flag.
+
 Connect to an existing browser via Chrome DevTools Protocol:
 
 ```bash

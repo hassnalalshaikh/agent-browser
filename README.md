@@ -962,6 +962,8 @@ Connect to `ws://localhost:9223` to receive frames and send input:
 
 ### Programmatic API
 
+For an authenticated CDP server, pass `cdpHeaders` to `BrowserManager.launch({ cdpUrl, cdpHeaders })`. These headers authenticate only the browser transport. Page headers remain a separate `headers` option. The experimental native engine rejects `cdpHeaders`; use the Node.js API for this connection.
+
 For advanced use, control streaming directly via the protocol:
 
 ```typescript

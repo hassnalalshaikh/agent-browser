@@ -833,6 +833,9 @@ async fn try_auto_restore_state(state: &mut DaemonState) {
 // ---------------------------------------------------------------------------
 
 async fn handle_launch(cmd: &Value, state: &mut DaemonState) -> Result<Value, String> {
+    if cmd.get("cdpHeaders").is_some() {
+        return Err("Not yet implemented: CDP authentication headers in the native engine".to_string());
+    }
     let headless = cmd
         .get("headless")
         .and_then(|v| v.as_bool())

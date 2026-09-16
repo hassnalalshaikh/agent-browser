@@ -16,6 +16,8 @@ export interface LaunchCommand extends BaseCommand {
   executablePath?: string;
   cdpPort?: number;
   cdpUrl?: string;
+  /** Authentication for the CDP transport only; never applied to web pages. */
+  cdpHeaders?: Record<string, string>;
   autoConnect?: boolean; // Auto-discover and connect to running Chrome via DevToolsActivePort
   extensions?: string[];
   profile?: string; // Path to persistent browser profile directory

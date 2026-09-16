@@ -111,6 +111,7 @@ export type BrowserLaunchOptions = Pick<
   | 'executablePath'
   | 'cdpPort'
   | 'cdpUrl'
+  | 'cdpHeaders'
   | 'autoConnect'
   | 'extensions'
   | 'profile'
@@ -1497,7 +1498,7 @@ export class BrowserManager {
     }
 
     if (cdpEndpoint) {
-      await this.connectViaCDP(cdpEndpoint);
+      await this.connectViaCDP(cdpEndpoint, { headers: options.cdpHeaders });
       return;
     }
 
@@ -1739,7 +1740,7 @@ export class BrowserManager {
    */
   private async connectViaCDP(
     cdpEndpoint: string | undefined,
-    options?: { timeout?: number }
+    options?: { timeout?: number; headers?: Record<string, string> }
   ): Promise<void> {
     if (!cdpEndpoint) {
       throw new Error('CDP endpoint is required for CDP connection');
@@ -1766,7 +1767,7 @@ export class BrowserManager {
     }
 
     const browser = await chromium
-      .connectOverCDP(cdpUrl, { timeout: options?.timeout })
+      .connectOverCDP(cdpUrl, { timeout: options?.timeout, headers: options?.headers })
       .catch(() => {
         throw new Error(
           `Failed to connect via CDP to ${cdpUrl}. ` +
@@ -1802,7 +1803,10 @@ export class BrowserManager {
       }
       if (!resolvedWs && (cdpUrl.startsWith('http://') || cdpUrl.startsWith('https://'))) {
         try {
-          const resp = await fetch(`${cdpUrl}/json/version`);
+          const resp = await fetch(`${cdpUrl}/json/version`, {
+            headers: options?.headers,
+            redirect: 'error',
+          });
           const info: any = await resp.json();
           resolvedWs = info.webSocketDebuggerUrl ?? null;
         } catch (err) {
